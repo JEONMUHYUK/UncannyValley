@@ -81,6 +81,7 @@ public class PlayerMove : MonoBehaviourPun
     [PunRPC]
     public void Death()
     {
+        AudioManagers.Instance.FX(AudioManagers.Instance.Death);
         Destroy(gameObject);
     }
 }
