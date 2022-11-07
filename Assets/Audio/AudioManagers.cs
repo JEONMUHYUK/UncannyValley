@@ -36,8 +36,5 @@ public class AudioManagers : SingleTon<AudioManagers>
         BGMSource.Play();
     }
     public void FX(AudioClip fx) => FXSource.PlayOneShot(fx);
-
-
-
     
 }
