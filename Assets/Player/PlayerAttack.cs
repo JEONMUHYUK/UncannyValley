@@ -10,8 +10,8 @@ public class PlayerAttack : MonoBehaviourPun
     [SerializeField]
     private float attackSpeed = 2;
 
-    private Vector3 attackPos = -Vector3.up;
     private PlayerInput playerInput;
+    private Vector3 attackPos = -Vector3.up;
     private bool attacking = false;
 
     private void Start()

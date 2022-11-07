@@ -2,20 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.UI;
 
 public class PlayerMove : MonoBehaviour
 {
     [SerializeField]
-    Rigidbody playerRigidBody;
+    private Rigidbody playerRigidBody;
     [SerializeField]
-    float moveSpeed = 2;
+    private Slider staminaState;
+    [SerializeField]
+    private float moveSpeed = 2;
+    [SerializeField]
+    private float runSpeed = 1;
+    [SerializeField]
+    private float stamina = 100;
+    [SerializeField]
+    private float staminaConsumtion = 0.1f;
 
-    Vector3 velocity = Vector3.zero;
-    Vector3 rotate = Vector3.zero;
+    private PlayerInput playerInput;
+    private Vector3 velocity = Vector3.zero;
+    private Vector3 rotate = Vector3.zero;
+    private bool isRun = false;
 
     private void Start()
     {
+        playerInput = playerInput = gameObject.GetComponent<PlayerInput>();
         playerRigidBody = gameObject.GetComponent<Rigidbody>();
+        playerInput.del_Run = Run;
+        playerInput.del_Stop = RunStop;
     }
 
     private void Update()
@@ -23,14 +37,39 @@ public class PlayerMove : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
         float y = Input.GetAxis("Mouse X");
+        staminaState.value = stamina;
 
         velocity.z = -z;
         velocity.x = -x;
         rotate.y = y;
-
         playerRigidBody.transform.Rotate(rotate);
-        playerRigidBody.transform.Translate(velocity*Time.deltaTime*moveSpeed);
+
+        if (!isRun)
+        {
+            playerRigidBody.transform.Translate(velocity * Time.deltaTime * moveSpeed);
+            if (stamina < 100)
+                stamina += staminaConsumtion;
+            else
+                stamina = 100;
+        }
+        else if (isRun)
+        {
+            if (stamina > 0)
+            {
+                stamina -= staminaConsumtion;
+                playerRigidBody.transform.Translate(velocity * Time.deltaTime * (moveSpeed + runSpeed));
+            }
+            else
+                playerRigidBody.transform.Translate(velocity * Time.deltaTime * moveSpeed);
+        }
     }
 
-
+    public void Run()
+    {
+        isRun = true;
+    }
+    public void RunStop()
+    {
+        isRun = false;
+    }
 }
