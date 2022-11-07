@@ -9,7 +9,7 @@ public class PlayerMove : MonoBehaviourPun
     [SerializeField]
     private Rigidbody playerRigidBody;
     [SerializeField]
-    private Slider staminaState=null;
+    private Slider staminaState = null;
     [SerializeField]
     private float moveSpeed = 2;
     [SerializeField]
@@ -83,6 +83,7 @@ public class PlayerMove : MonoBehaviourPun
     {
         AudioManagers.Instance.FX(AudioManagers.Instance.Death);
         Destroy(gameObject);
-        PhotonNetwork.LeaveRoom();
+        if (photonView.IsMine)
+            PhotonNetwork.LeaveRoom();
     }
 }
