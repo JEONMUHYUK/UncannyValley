@@ -11,6 +11,12 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     [SerializeField] private Image playerImageInRoom = null;
     [SerializeField] private Sprite[] sprites = null;
 
+    private void Awake()
+    {
+        if (PhotonNetwork.IsMasterClient)
+            PhotonNetwork.AutomaticallySyncScene = true;
+
+    }
     void Start() => PhotonNetwork.ConnectUsingSettings();
 
 
