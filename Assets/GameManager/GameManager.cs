@@ -69,6 +69,8 @@ public class GameManager : MonoBehaviourPunCallbacks
                  GameObject inst = PhotonNetwork.Instantiate("Unit", startPos[i], Quaternion.identity);
              }
          }*/
+
+        AudioManagers.Instance.BGM(AudioManagers.Instance.GameBgm);
     }
 
     public void SetPlayerStartPos()
