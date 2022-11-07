@@ -11,6 +11,12 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     [SerializeField] private Image playerImageInRoom = null;
     [SerializeField] private Sprite[] sprites = null;
 
+    private void Awake()
+    {
+        if (PhotonNetwork.IsMasterClient)
+            PhotonNetwork.AutomaticallySyncScene = true;
+
+    }
     void Start() => PhotonNetwork.ConnectUsingSettings();
 
 
@@ -34,6 +40,12 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             spriteIdx++;
         }
         AudioManagers.Instance.FX(AudioManagers.Instance.EnterRoom);
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 4)
+        {
+            Debug.Log("다같이 이동!");
+            PhotonNetwork.LoadLevel("GameScene");
+
+        }
     }
     int spriteIdx = 0;
     // 플레이어가 방에 입장시 정보 업데이트
@@ -58,11 +70,12 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             spriteIdx++;
         }
 
-        Debug.Log(newPlayer.NickName);
+        Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
         if (PhotonNetwork.CurrentRoom.PlayerCount == 4)
         {
             Debug.Log("다같이 이동!");
-            //PhotonNetwork.LoadLevel("GameScene");
+            PhotonNetwork.LoadLevel("GameScene");
+
         }
         AudioManagers.Instance.FX(AudioManagers.Instance.EnterRoom);
     }
