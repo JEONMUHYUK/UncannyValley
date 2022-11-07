@@ -85,8 +85,8 @@ public class PlayerMove : MonoBehaviourPun
         Destroy(gameObject);
         if (photonView.IsMine)
         {
-            PhotonNetwork.LeaveRoom();
             PhotonNetwork.LoadLevel("StartScene");
+            PhotonNetwork.Disconnect();
         }
 
 
