@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     Vector3[] startPos;
     PhotonView PV;
     int myNum;
+    int posIndexNum = 0;
 
     private void Awake()
     {
@@ -27,7 +28,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         startPos = new Vector3[unitCount];
         playerSetPos = new Vector3[4];
-        SetPlayerStartPos();
         SetStartPos();
         Player[] sortedPlayers = PhotonNetwork.PlayerList;
         for (int i = 0; i < sortedPlayers.Length; i++)
@@ -61,8 +61,6 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
         }
 
-
-        //   SetStartPos(); // AI 
     }
 
     private void Start()
@@ -78,27 +76,31 @@ public class GameManager : MonoBehaviourPunCallbacks
         AudioManagers.Instance.BGM(AudioManagers.Instance.GameBgm);
     }
 
-    public void SetPlayerStartPos()
-    {
-        for (int i = 0; i < 4; i++)
-        {
-            playerSetPos[i].x = Random.Range(-120, 120);
-            playerSetPos[i].z = Random.Range(-120, 120);
-            playerSetPos[i].y = 1;
-        }
-    }
 
     List<Vector3> check;
-
-
 
     public void SetStartPos()
     {
         check = new List<Vector3>();
+
+        for (int i = 0; i < 4; i++) // Player
+        {
+            playerSetPos[i].x = Random.Range(-48, 48);
+            playerSetPos[i].z = Random.Range(-48, 48);
+            playerSetPos[i].y = 0.6f;
+
+            if (!check.Contains(playerSetPos[i]))
+                check.Add(playerSetPos[i]);
+            else
+            {
+                i--;
+            }
+        }
+
         for (int i = 0; i < startPos.Length; i++)
         {
-            startPos[i].x = Random.Range(-120, 120);
-            startPos[i].z = Random.Range(-120, 120);
+            startPos[i].x = Random.Range(-48, 48);
+            startPos[i].z = Random.Range(-48, 48);
             startPos[i].y = 0.6f;
 
             if (!check.Contains(startPos[i]))
