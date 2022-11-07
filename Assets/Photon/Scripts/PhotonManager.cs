@@ -43,6 +43,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.CurrentRoom.PlayerCount == 4)
         {
             Debug.Log("다같이 이동!");
+            PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.LoadLevel("GameScene");
 
         }
