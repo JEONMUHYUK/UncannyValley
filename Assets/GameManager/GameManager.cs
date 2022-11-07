@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             gameObject.GetPhotonView().RPC("AiInit", RpcTarget.MasterClient);
 
     }
-    //생성할때  //풀링전에 생성을 한다 (매니저)
+
     [PunRPC]
     [System.Obsolete]
     public void AiInit()
