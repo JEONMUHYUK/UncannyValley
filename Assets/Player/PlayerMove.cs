@@ -83,5 +83,6 @@ public class PlayerMove : MonoBehaviourPun
     {
         AudioManagers.Instance.FX(AudioManagers.Instance.Death);
         Destroy(gameObject);
+        PhotonNetwork.LeaveRoom();
     }
 }
