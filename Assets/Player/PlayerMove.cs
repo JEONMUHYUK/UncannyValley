@@ -9,7 +9,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField]
     private Rigidbody playerRigidBody;
     [SerializeField]
-    private Slider staminaState;
+    private Slider staminaState=null;
     [SerializeField]
     private float moveSpeed = 2;
     [SerializeField]
@@ -27,6 +27,7 @@ public class PlayerMove : MonoBehaviour
     private void Start()
     {
         playerInput = playerInput = gameObject.GetComponent<PlayerInput>();
+        staminaState = GameObject.FindWithTag("StaminaState").gameObject.GetComponent<Slider>();
         playerRigidBody = gameObject.GetComponent<Rigidbody>();
         playerInput.del_Run = Run;
         playerInput.del_Stop = RunStop;

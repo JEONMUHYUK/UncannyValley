@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Bullet
   - MainPlayer
+  - PlayerUI
+  - StaminaState
   layers:
   - Default
   - TransparentFX

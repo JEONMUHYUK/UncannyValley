@@ -888,6 +888,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1258601683, guid: 83338af9c1d1cbf46bc38b0de193cef2, type: 3}
+      propertyPath: m_TagString
+      value: StaminaState
+      objectReference: {fileID: 0}
     - target: {fileID: 5763990424468307944, guid: 83338af9c1d1cbf46bc38b0de193cef2, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -974,6 +978,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8383121327708883014, guid: 83338af9c1d1cbf46bc38b0de193cef2, type: 3}
       propertyPath: m_Name
+      value: PlayerUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 8383121327708883014, guid: 83338af9c1d1cbf46bc38b0de193cef2, type: 3}
+      propertyPath: m_TagString
       value: PlayerUI
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2372,6 +2380,104 @@ MonoBehaviour:
   type: 0
   _color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   _radius: 0.5
+--- !u!1 &1684642145
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1684642148}
+  - component: {fileID: 1684642147}
+  - component: {fileID: 1684642146}
+  - component: {fileID: 1684642149}
+  m_Layer: 0
+  m_Name: Camera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!81 &1684642146
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684642145}
+  m_Enabled: 1
+--- !u!20 &1684642147
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684642145}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!4 &1684642148
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684642145}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -19.9833, y: -1.8055459, z: 1.3085325}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1684642149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684642145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53be7e0014f405444b4ca514ffd3037a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraPos: {x: 0, y: 0, z: 0}
 --- !u!1 &1684737318
 GameObject:
   m_ObjectHideFlags: 0
@@ -2475,7 +2581,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 283371595, guid: d599b20ab2e97774ea4165a2fda95b79, type: 3}
       propertyPath: sceneViewId
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 428509491, guid: d599b20ab2e97774ea4165a2fda95b79, type: 3}
       propertyPath: staminaState
