@@ -28,12 +28,10 @@ public class MoveAgent : MonoBehaviour
 
     private void MoveWayPoint()
     {
-
         if (agent.isPathStale)
         {
             return;
         }
-
         agent.destination = wayPoints[nextIdx].position;
         agent.isStopped = false;
     }

@@ -27,11 +27,6 @@ public class AudioManagers : SingleTon<AudioManagers>
 
     void Start()
     {
-        if (Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
         DontDestroyOnLoad(gameObject);
     }
     public void BGM(AudioClip bgm)
@@ -41,8 +36,5 @@ public class AudioManagers : SingleTon<AudioManagers>
         BGMSource.Play();
     }
     public void FX(AudioClip fx) => FXSource.PlayOneShot(fx);
-
-
-
     
 }
