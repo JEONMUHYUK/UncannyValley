@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviourPun
     private Vector3[] playerSetPos;
     Vector3[] startPos;
     PhotonView PV;
+
+    int randomPos = 0;
     
 
     private void Awake()
@@ -18,11 +20,9 @@ public class GameManager : MonoBehaviourPun
         startPos = new Vector3[unitCount];
         playerSetPos = new Vector3[4];
 
-
-            PhotonNetwork.Instantiate("Player", playerSetPos[0], Quaternion.identity);
-        
-       
-
+        randomPos = PhotonNetwork.LocalPlayer.ActorNumber;
+        SetPlayerStartPos();
+        GameObject player = PhotonNetwork.Instantiate("Player", playerSetPos[randomPos], Quaternion.identity);
 
         SetStartPos(); // AI 
     }
