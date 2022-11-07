@@ -25,6 +25,7 @@ public class PlayerAttack : MonoBehaviourPun
     
     public void NoseAttack()
     {
+        if (!photonView.IsMine) return;
         if (attacking) return;
         photonView.StartCoroutine(NoseFoward());
     }
