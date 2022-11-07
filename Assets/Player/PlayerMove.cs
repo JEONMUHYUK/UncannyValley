@@ -74,7 +74,10 @@ public class PlayerMove : MonoBehaviourPun
     {
         isRun = false;
     }
-
+    public void CallDeath()
+    {
+        photonView.RPC("Death", RpcTarget.All);
+    }
     [PunRPC]
     public void Death()
     {

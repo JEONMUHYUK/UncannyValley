@@ -23,7 +23,10 @@ public class PlayerInput : MonoBehaviourPun
     {
         if (!photonView.IsMine) return;
         if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            AudioManagers.Instance.FX(AudioManagers.Instance.Attack);
             del_Attack();
+        }
         if (Input.GetKeyDown(KeyCode.LeftShift))
             del_Run();
         else if (Input.GetKeyUp(KeyCode.LeftShift))
