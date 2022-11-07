@@ -19,6 +19,9 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         nikName.text = PhotonNetwork.NickName;
     }
 
+
+
+
     private void OnGUI()
     {
         GUIStyle gUIStyle = new GUIStyle(GUI.skin.label);
