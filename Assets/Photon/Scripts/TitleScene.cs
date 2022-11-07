@@ -21,6 +21,7 @@ public class TitleScene : MonoBehaviourPunCallbacks
     {
         startButton.onClick.AddListener(delegate { OnclickStartButton(); });
         nameFeild.onValueChanged.AddListener((string name) => { OnInputName(name); });
+        AudioManagers.Instance.BGM(AudioManagers.Instance.LobbyBGM);
     }
 
     void OnclickStartButton()
