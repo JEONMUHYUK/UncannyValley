@@ -40,6 +40,12 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             spriteIdx++;
         }
         AudioManagers.Instance.FX(AudioManagers.Instance.EnterRoom);
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 4)
+        {
+            Debug.Log("다같이 이동!");
+            PhotonNetwork.LoadLevel("GameScene");
+
+        }
     }
     int spriteIdx = 0;
     // 플레이어가 방에 입장시 정보 업데이트
