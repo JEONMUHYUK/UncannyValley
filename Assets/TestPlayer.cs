@@ -8,6 +8,6 @@ public class TestPlayer : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        transform.position = FindObjectOfType<GameManager>().GetComponent<GameManager>().GetPlayerPos(number);
+
     }
 }
