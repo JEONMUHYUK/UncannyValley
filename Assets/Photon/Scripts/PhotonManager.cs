@@ -1,6 +1,5 @@
 using Photon.Pun;
 using Photon.Realtime;
-using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,16 +9,13 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     [SerializeField] private TextMeshProUGUI nikName = null;
     [SerializeField] private Image roomPanel = null;
     [SerializeField] private Image playerImageInRoom = null;
+    [SerializeField] private Sprite[] sprites = null;
 
-    Color[] colors = new Color[4] {Color.cyan, Color.blue, Color.gray, Color.red };
-    void Start()
-    {
-        PhotonNetwork.ConnectUsingSettings();
-    }
+    void Start() => PhotonNetwork.ConnectUsingSettings();
+
 
     public override void OnConnectedToMaster()
     {
-        Debug.Log("#############OnConnectedToMaster");
         nikName.text = "Player : " + PhotonNetwork.NickName;
         OnRandomJoin();
     }
@@ -29,34 +25,71 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         roomPanel.gameObject.SetActive(true);
         int players = PhotonNetwork.CurrentRoom.PlayerCount;
+
         for (int i = 0; i < players; i++)
         {
-            Image palyerImage = Instantiate(playerImageInRoom, roomPanel.transform);
-            palyerImage.color = colors[colorIdx];
-            colorIdx++;
+            Image playerImage = PlayerImagePool.Instance.Get(Vector3.zero).GetComponent<Image>();
+            playerImage.transform.parent = roomPanel.transform;
+            playerImage.sprite = sprites[spriteIdx];
+            spriteIdx++;
         }
-        Debug.Log("OnJoinedRoom");
-        
-        
-
-        //Debug.Log(playerName.text);
-        //playerName.text = PhotonNetwork.NickName;
+        AudioManagers.Instance.FX(AudioManagers.Instance.EnterRoom);
     }
-    int colorIdx = 0;
+    int spriteIdx = 0;
     // 플레이어가 방에 입장시 정보 업데이트
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        Image palyerImage = Instantiate(playerImageInRoom, roomPanel.transform);
-        palyerImage.color = colors[colorIdx];
-        colorIdx++;
+        Image[] childs = roomPanel.gameObject.GetComponentsInChildren<Image>();
+        if (childs.Length > 1)
+        {
+            for (int i = 1; i < childs.Length; i++)
+            {
+                PlayerImagePool.Instance.Release(childs[i].gameObject);
+            }
+            spriteIdx = 0;
+        }
 
-        Debug.Log(newPlayer.NickName);
+        int players = PhotonNetwork.CurrentRoom.PlayerCount;
+        for (int i = 0; i < players; i++)
+        {
+            Image playerImage = PlayerImagePool.Instance.Get(Vector3.zero).GetComponent<Image>();
+            playerImage.transform.parent = roomPanel.transform;
+            playerImage.sprite = sprites[spriteIdx];
+            spriteIdx++;
+        }
+
+        Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
         if (PhotonNetwork.CurrentRoom.PlayerCount == 4)
         {
-            PhotonNetwork.LoadLevel("GameScene");
-        }
-    }
+            Debug.Log("다같이 이동!");
+            if (PhotonNetwork.IsMasterClient) PhotonNetwork.LoadLevel("GameScene");
 
+        }
+        AudioManagers.Instance.FX(AudioManagers.Instance.EnterRoom);
+    }
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        Image[] childs = roomPanel.gameObject.GetComponentsInChildren<Image>();
+        if (childs.Length > 1)
+        {
+            for (int i = 1; i < childs.Length; i++)
+            {
+                PlayerImagePool.Instance.Release(childs[i].gameObject);
+            }
+            spriteIdx = 0;
+        }
+
+        int players = PhotonNetwork.CurrentRoom.PlayerCount;
+        for (int i = 0; i < players; i++)
+        {
+            Image playerImage = PlayerImagePool.Instance.Get(Vector3.zero).GetComponent<Image>();
+            playerImage.transform.parent = roomPanel.transform;
+            playerImage.sprite = sprites[spriteIdx];
+            spriteIdx++;
+        }
+        AudioManagers.Instance.FX(AudioManagers.Instance.LeftRoom);
+
+    }
     public void OnRandomJoin()
     {
         byte expectedMaxPlayers = 0;

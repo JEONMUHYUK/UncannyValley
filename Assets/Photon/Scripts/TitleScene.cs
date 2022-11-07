@@ -21,17 +21,17 @@ public class TitleScene : MonoBehaviourPunCallbacks
     {
         startButton.onClick.AddListener(delegate { OnclickStartButton(); });
         nameFeild.onValueChanged.AddListener((string name) => { OnInputName(name); });
+        AudioManagers.Instance.BGM(AudioManagers.Instance.LobbyBGM);
     }
 
     void OnclickStartButton()
     {
         if (nikName.Length < 1) return;
+        AudioManagers.Instance.FX(AudioManagers.Instance.Click);
         PhotonNetwork.NickName = nikName;
         SceneManager.LoadScene("LobbyScene");
     }
 
-    void OnInputName(string name)
-    {
-        nikName = name;
-    }
+    void OnInputName(string name) => nikName = name;
+
 }
