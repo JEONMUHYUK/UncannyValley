@@ -9,13 +9,6 @@ public class PlayerChase : MonoBehaviour
     private Transform EnemyTr;
     private Transform PlayerTr;
     private NavMeshAgent nvAgent;
- 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
 
     private void Update()
     {
@@ -26,6 +19,4 @@ public class PlayerChase : MonoBehaviour
 
         nvAgent.destination = PlayerTr.position;
     }
-
-
 }

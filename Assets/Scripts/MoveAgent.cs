@@ -28,12 +28,10 @@ public class MoveAgent : MonoBehaviour
 
     private void MoveWayPoint()
     {
-
         if (agent.isPathStale)
         {
             return;
         }
-
         agent.destination = wayPoints[nextIdx].position;
         agent.isStopped = false;
     }
@@ -42,11 +40,9 @@ public class MoveAgent : MonoBehaviour
     {
         if (agent.remainingDistance <= 0.5f)
         {
-
             nextIdx = Random.Range(0, wayPoints.Count);
 
             MoveWayPoint();
         }
-
     }
 }
