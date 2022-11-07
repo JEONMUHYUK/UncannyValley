@@ -5,9 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Bullet
+<<<<<<< HEAD
   - MainPlayer
   - PlayerUI
   - StaminaState
+=======
+>>>>>>> MinJoo_AI
   layers:
   - Default
   - TransparentFX
@@ -15,7 +18,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Cube
   - 
   - 
   - 
