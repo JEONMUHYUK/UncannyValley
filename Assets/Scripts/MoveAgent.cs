@@ -19,7 +19,7 @@ public class MoveAgent : MonoBehaviour
     {
         gameObject.transform.LookAt(wayPoints[wayNum].position);
 
-        gameObject.transform.Translate(gameObject.transform.forward);
+        gameObject.transform.Translate(gameObject.transform.forward*Time.deltaTime*2);
     }
 
     private void Start()
