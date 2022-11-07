@@ -73,12 +73,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void SetPlayerStartPos()
     {
-        for (int i = 0; i < 4; i++)
-        {
-            playerSetPos[i].x = Random.Range(-120, 120);
-            playerSetPos[i].z = Random.Range(-120, 120);
-            playerSetPos[i].y = 1;
-        }
+        
     }
 
     List<Vector3> check;
@@ -88,6 +83,14 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void SetStartPos()
     {
         check = new List<Vector3>();
+
+        for (int i = 0; i < 4; i++) // Player
+        {
+            playerSetPos[i].x = Random.Range(-120, 120);
+            playerSetPos[i].z = Random.Range(-120, 120);
+            playerSetPos[i].y = 1;
+        }
+
         for (int i = 0; i < startPos.Length; i++)
         {
             startPos[i].x = Random.Range(-120, 120);
