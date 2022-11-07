@@ -40,11 +40,9 @@ public class MoveAgent : MonoBehaviour
     {
         if (agent.remainingDistance <= 0.5f)
         {
-
             nextIdx = Random.Range(0, wayPoints.Count);
 
             MoveWayPoint();
         }
-
     }
 }
