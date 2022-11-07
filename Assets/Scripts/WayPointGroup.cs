@@ -19,6 +19,8 @@ public class WayPointGroup : MonoBehaviour
     private void Init()
     {
         GetComponentsInChildren<Transform>(wayPoints);
+
+        Debug.Log(wayPoints.Count);
         wayPoints.Remove(this.transform);
     }
 

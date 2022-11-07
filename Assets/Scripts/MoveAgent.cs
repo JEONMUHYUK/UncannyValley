@@ -5,49 +5,37 @@ using UnityEngine.AI;
 
 public class MoveAgent : MonoBehaviour
 {
+    [SerializeField] private List<Transform> wayPoints;
 
-    public List<Transform> wayPoints;
-    public int nextIdx = 0;
-    private NavMeshAgent agent;
+    WayPointGroup wayPointGroup;
 
-    private void OnEnable()
+    int wayNum = -1;
+    public void RandomWayPoint()
     {
-        Vector3 desiredPos = new Vector3(transform.position.x, 2f, transform.position.z);
-        transform.position= desiredPos;
-        agent = GetComponent<NavMeshAgent>();
-        agent.transform.position = desiredPos;
-        agent.autoBraking = false;
-
-        var group = GameObject.Find("WayPointGroup");
-
-        if (group != null)
-        {
-            group.GetComponentsInChildren<Transform>(wayPoints);
-            wayPoints.RemoveAt(0);
-        }
-        nextIdx = Random.Range(0, wayPoints.Count);
-        MoveWayPoint();
+        wayNum = Random.Range(0, wayPoints.Count);
     }
 
-    private void MoveWayPoint()
+    public void TargetDir()
     {
-        if (agent.isPathStale)
-        {
-            return;
-        }
-        agent.destination = wayPoints[nextIdx].position;
-        //agent.isStopped = false;
+        gameObject.transform.LookAt(wayPoints[wayNum].position);
+
+        gameObject.transform.Translate(gameObject.transform.forward);
+    }
+
+    private void Start()
+    {
+        wayPointGroup = GameObject.FindObjectOfType<WayPointGroup>();
+        wayPoints = wayPointGroup.wayPoints;
+        RandomWayPoint();
     }
 
     private void Update()
     {
-        float desiredDistance = Vector3.Distance(agent.destination, transform.position);
-        if (desiredDistance <= 2f)
+        if (Vector3.Distance(gameObject.transform.position, wayPoints[wayNum].position) > 0.5)
+            TargetDir();
+        else
         {
-            nextIdx = Random.Range(0, wayPoints.Count);
-
-            MoveWayPoint();
+            RandomWayPoint();
         }
-
     }
 }
