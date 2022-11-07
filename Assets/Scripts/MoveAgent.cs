@@ -44,18 +44,10 @@ public class MoveAgent : MonoBehaviour
         float desiredDistance = Vector3.Distance(agent.destination, transform.position);
         if (desiredDistance <= 2f)
         {
-<<<<<<< HEAD
-=======
-            Debug.Log("call");
->>>>>>> MinJoo_AI
             nextIdx = Random.Range(0, wayPoints.Count);
 
             MoveWayPoint();
         }
-<<<<<<< HEAD
-=======
-        Debug.Log(desiredDistance);
-        Debug.Log(agent.destination);
->>>>>>> MinJoo_AI
+
     }
 }
