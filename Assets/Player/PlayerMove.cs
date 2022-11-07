@@ -9,8 +9,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField]
     float moveSpeed = 2;
 
-    Vector3 velocityX = Vector3.zero;
-    Vector3 velocityZ = Vector3.zero;
+    Vector3 velocity = Vector3.zero;
     Vector3 rotate = Vector3.zero;
 
     private void Start()
@@ -23,12 +22,14 @@ public class PlayerMove : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
         float y = Input.GetAxis("Mouse X");
-        velocityX.x = x;
-        velocityZ.z = z;
+
+        velocity.z = -z;
+        velocity.x = -x;
         rotate.y = y;
-        playerRigidBody.transform.forward = velocityZ;
-        playerRigidBody.transform.right = velocityX;
 
         playerRigidBody.transform.Rotate(rotate);
+        playerRigidBody.transform.Translate(velocity*Time.deltaTime*moveSpeed);
     }
+
+
 }
