@@ -10,9 +10,12 @@ public class MoveAgent : MonoBehaviour
     public int nextIdx = 0;
     private NavMeshAgent agent;
 
-    private void Start()
+    private void OnEnable()
     {
+        Vector3 desiredPos = new Vector3(transform.position.x, 2f, transform.position.z);
+        transform.position= desiredPos;
         agent = GetComponent<NavMeshAgent>();
+        agent.transform.position = desiredPos;
         agent.autoBraking = false;
 
         var group = GameObject.Find("WayPointGroup");
@@ -22,7 +25,7 @@ public class MoveAgent : MonoBehaviour
             group.GetComponentsInChildren<Transform>(wayPoints);
             wayPoints.RemoveAt(0);
         }
-
+        nextIdx = Random.Range(0, wayPoints.Count);
         MoveWayPoint();
     }
 
@@ -33,16 +36,26 @@ public class MoveAgent : MonoBehaviour
             return;
         }
         agent.destination = wayPoints[nextIdx].position;
-        agent.isStopped = false;
+        //agent.isStopped = false;
     }
 
     private void Update()
     {
-        if (agent.remainingDistance <= 0.5f)
+        float desiredDistance = Vector3.Distance(agent.destination, transform.position);
+        if (desiredDistance <= 2f)
         {
+<<<<<<< HEAD
+=======
+            Debug.Log("call");
+>>>>>>> MinJoo_AI
             nextIdx = Random.Range(0, wayPoints.Count);
 
             MoveWayPoint();
         }
+<<<<<<< HEAD
+=======
+        Debug.Log(desiredDistance);
+        Debug.Log(agent.destination);
+>>>>>>> MinJoo_AI
     }
 }
