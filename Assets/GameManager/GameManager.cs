@@ -12,11 +12,14 @@ using UnityEditor;
 public class GameManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] int unitCount;
+    [SerializeField] Image winLogo;
     private Vector3[] playerSetPos;
+
     Vector3[] startPos;
     PhotonView PV;
     int myNum;
     int posIndexNum = 0;
+    int playerCount;
 
     private void Awake()
     {
@@ -57,7 +60,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             for (int i = 0; i < unitCount; i++)
             {
-                GameObject player = PhotonNetwork.Instantiate("Unit", startPos[i], Quaternion.identity * Quaternion.Euler(0,Random.Range(0,360),0));
+                GameObject player = PhotonNetwork.Instantiate("Unit", startPos[i], Quaternion.identity * Quaternion.Euler(0, Random.Range(0, 360), 0));
             }
         }
 
@@ -65,15 +68,37 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        /* if (PhotonNetwork.IsMasterClient) // AI add only masterClient
-         {
-             for (int i = 0; i < unitCount; i++) // AI Instance
-             {
-                 GameObject inst = PhotonNetwork.Instantiate("Unit", startPos[i], Quaternion.identity);
-             }
-         }*/
-
+        winLogo.gameObject.SetActive(false);
         AudioManagers.Instance.BGM(AudioManagers.Instance.GameBgm);
+    }
+
+
+    public override void OnLeftRoom()
+    {
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
+        {
+            Debug.Log("win");
+            Winner();
+        }
+    }
+    public void Winner()
+    {
+        winLogo.gameObject.SetActive(true);
+
+
+    }
+    IEnumerator WinEff()
+    {
+        int count = 0;
+        while (count<4)
+        {
+            winLogo.gameObject.transform.position += Vector3.up;
+            yield return new WaitForSeconds(0.5f);
+            winLogo.gameObject.transform.position -= Vector3.up;
+            yield return new WaitForSeconds(0.5f);
+            count++;
+        }
+        PhotonNetwork.LeaveRoom();
     }
 
 
