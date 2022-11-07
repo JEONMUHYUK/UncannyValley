@@ -7,6 +7,7 @@ using Photon.Realtime;
 using TMPro;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using UnityEditor;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -18,6 +19,10 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
+
         Application.targetFrameRate = 60;
 
         startPos = new Vector3[unitCount];
