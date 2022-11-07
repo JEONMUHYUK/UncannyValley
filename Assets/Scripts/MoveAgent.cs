@@ -12,7 +12,7 @@ public class MoveAgent : MonoBehaviour
     int wayNum = -1;
     public void RandomWayPoint()
     {
-        wayNum = Random.Range(0, 35);
+        wayNum = Random.Range(0, wayPoints.Count);
     }
 
     public void TargetDir()
