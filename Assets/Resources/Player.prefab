@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1415431794}
   - component: {fileID: 1415431793}
   - component: {fileID: 720371227062948258}
+  - component: {fileID: 3157639236290076874}
   m_Layer: 0
   m_Name: Nose
   m_TagString: Untagged
@@ -111,6 +112,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 175c1c4e1251ead4bb61b3a96ee4c784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3157639236290076874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1415431791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &7404273350627848470
 GameObject:
   m_ObjectHideFlags: 0
