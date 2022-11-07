@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             for (int i = 0; i < unitCount; i++)
             {
-                GameObject player = PhotonNetwork.Instantiate("Unit", startPos[i], Quaternion.identity);
+                GameObject player = PhotonNetwork.Instantiate("Unit", startPos[i], Quaternion.identity * Quaternion.Euler(0,Random.Range(0,360),0));
             }
         }
 
