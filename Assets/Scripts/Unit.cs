@@ -7,6 +7,7 @@ public class Unit : MonoBehaviourPun
 {
     public void CallDeath()
     {
+        AudioManagers.Instance.FX(AudioManagers.Instance.Death);
         photonView.RPC("Death", RpcTarget.All);
     }
 

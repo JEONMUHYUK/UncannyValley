@@ -25,10 +25,18 @@ public class PlayerAttack : MonoBehaviourPun
     
     public void NoseAttack()
     {
+        gameObject.GetPhotonView().RPC("AttackStart", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void AttackStart()
+    {
         if (!photonView.IsMine) return;
         if (attacking) return;
         photonView.StartCoroutine(NoseFoward());
     }
+
+
     [PunRPC]
     IEnumerator NoseFoward()
     {
