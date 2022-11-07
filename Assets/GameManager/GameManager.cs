@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
 
 
-    public override void OnLeftRoom()
+    public override void OnPlayerLeftRoom(Player other)
     {
         if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
         {
