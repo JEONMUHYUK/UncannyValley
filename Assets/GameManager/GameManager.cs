@@ -118,9 +118,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         while (count < 4)
         {
             winLogo.gameObject.transform.position += Vector3.up*20;
-            yield return new WaitForSeconds(0.5f);
+            yield return null;
             winLogo.gameObject.transform.position -= Vector3.up*20;
-            yield return new WaitForSeconds(0.5f);
+            yield return null;
             count++;
         }
         PhotonNetwork.LeaveRoom();
