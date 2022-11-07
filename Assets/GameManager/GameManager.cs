@@ -23,6 +23,12 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.AutomaticallySyncScene=false;
+        }
+
+
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
@@ -56,8 +62,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             GameObject player = PhotonNetwork.Instantiate("Player", playerSetPos[3], Quaternion.identity);
         }
-        if(PhotonNetwork.IsMasterClient)
-        photonView.RPC("AiInit", RpcTarget.MasterClient);
+        if (PhotonNetwork.IsMasterClient)
+            photonView.RPC("AiInit", RpcTarget.MasterClient);
 
     }
     //생성할때  //풀링전에 생성을 한다 (매니저)
@@ -99,7 +105,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     IEnumerator WinEff()
     {
         int count = 0;
-        while (count<4)
+        while (count < 4)
         {
             winLogo.gameObject.transform.position += Vector3.up;
             yield return new WaitForSeconds(0.5f);
