@@ -89,6 +89,13 @@ public class GameManager : MonoBehaviourPunCallbacks
             playerSetPos[i].x = Random.Range(-120, 120);
             playerSetPos[i].z = Random.Range(-120, 120);
             playerSetPos[i].y = 1;
+
+            if (!check.Contains(startPos[i]))
+                check.Add(startPos[i]);
+            else
+            {
+                i--;
+            }
         }
 
         for (int i = 0; i < startPos.Length; i++)
