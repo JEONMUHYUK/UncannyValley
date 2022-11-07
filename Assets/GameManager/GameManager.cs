@@ -56,15 +56,23 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             GameObject player = PhotonNetwork.Instantiate("Player", playerSetPos[3], Quaternion.identity);
         }
+        photonView.RPC("AiInit", RpcTarget.MasterClient);
+
+    }
+    //생성할때  //풀링전에 생성을 한다 (매니저)
+    [PunRPC]
+    [System.Obsolete]
+    public void AiInit()
+    {
         if (PhotonNetwork.IsMasterClient)
         {
             for (int i = 0; i < unitCount; i++)
             {
-                GameObject player = PhotonNetwork.Instantiate("Unit", startPos[i], Quaternion.identity * Quaternion.Euler(0, Random.Range(0, 360), 0));
+                GameObject player = PhotonNetwork.InstantiateSceneObject("Unit", startPos[i], Quaternion.identity * Quaternion.Euler(0, Random.Range(0, 360), 0));
             }
         }
-
     }
+
 
     private void Start()
     {
