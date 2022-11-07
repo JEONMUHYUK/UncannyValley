@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             GameObject player = PhotonNetwork.Instantiate("Player", playerSetPos[3], Quaternion.identity);
         }
+        if(PhotonNetwork.IsMasterClient)
         photonView.RPC("AiInit", RpcTarget.MasterClient);
 
     }
