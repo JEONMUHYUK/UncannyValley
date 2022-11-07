@@ -49,7 +49,7 @@ public class PlayerAttack : MonoBehaviourPun
         {
             myNose.transform.Translate(-attackPos * Time.deltaTime * attackSpeed);
             yield return null;
-            if (Vector3.Distance(myNose.transform.position, gameObject.transform.position) < 0.05f) break;
+            if (Vector3.Distance(myNose.transform.position, gameObject.transform.position) < 0.1f) break;
         }
         attacking = false;
         yield break;

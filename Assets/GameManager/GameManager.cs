@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         startPos = new Vector3[unitCount];
         playerSetPos = new Vector3[4];
         SetPlayerStartPos();
-
+        SetStartPos();
         Player[] sortedPlayers = PhotonNetwork.PlayerList;
         for (int i = 0; i < sortedPlayers.Length; i++)
         {
@@ -50,14 +50,14 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         if (PhotonNetwork.IsMasterClient)
         {
-            for (int i = 0; i < 40; i++)
+            for (int i = 0; i < unitCount; i++)
             {
-                GameObject player = PhotonNetwork.Instantiate("Unit",new Vector3(Random.Range(-120, 120),1, Random.Range(-120, 120)), Quaternion.identity);
+                GameObject player = PhotonNetwork.Instantiate("Unit", startPos[i], Quaternion.identity);
             }
         }
-        
 
-        SetStartPos(); // AI 
+
+        //   SetStartPos(); // AI 
     }
 
     private void Start()
@@ -81,34 +81,27 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
+    List<Vector3> check;
+
+
+
     public void SetStartPos()
     {
+        check = new List<Vector3>();
         for (int i = 0; i < startPos.Length; i++)
         {
-            // if pos as same as playerPos
-            for (int j = 0; j < i; j++)
-            {
-                while (Mathf.Abs(startPos[i].x - playerSetPos[j].x) < 1 && Mathf.Abs(startPos[i].z - playerSetPos[j].z) < 1)
-                {
-                    startPos[i].x = Random.Range(-120, 120);
-                    startPos[i].z = Random.Range(-120, 120);
-                }
-            }
+            startPos[i].x = Random.Range(-120, 120);
+            startPos[i].z = Random.Range(-120, 120);
+            startPos[i].y = 0.6f;
 
-            startPos[i].y = 1;
+            if (!check.Contains(startPos[i]))
+                check.Add(startPos[i]);
 
-            // if pos as same as other Unit pos
-            for (int j = 0; j < i; j++)
+            else
             {
-                while (Mathf.Abs(startPos[i].x - startPos[j].x) < 1 && Mathf.Abs(startPos[i].z - startPos[j].z) < 1)
-                {
-                    startPos[i].x = Random.Range(-120, 120);
-                    startPos[i].z = Random.Range(-120, 120);
-                }
+                i--;
+                Debug.Log("°ãÄ§");
             }
         }
-
     }
-
-
 }
