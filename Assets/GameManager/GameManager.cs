@@ -9,6 +9,7 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 using UnityEditor;
 
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] int unitCount;
@@ -113,10 +114,8 @@ public class GameManager : MonoBehaviourPunCallbacks
             yield return null;
             count++;
         }
-        PhotonNetwork.LoadLevel("StartScene");
-        PhotonNetwork.LeaveRoom();
         PhotonNetwork.Disconnect();
-   
+        SceneManager.LoadScene("StartScene");
     }
 
 
