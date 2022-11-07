@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.UI;
 
-public class PlayerMove : MonoBehaviour
+public class PlayerMove : MonoBehaviourPun
 {
     [SerializeField]
     private Rigidbody playerRigidBody;
@@ -35,6 +35,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
+        if (!photonView.IsMine) return;
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
         float y = Input.GetAxis("Mouse X");
@@ -72,5 +73,11 @@ public class PlayerMove : MonoBehaviour
     public void RunStop()
     {
         isRun = false;
+    }
+
+    [PunRPC]
+    public void Death()
+    {
+        Destroy(gameObject);
     }
 }
