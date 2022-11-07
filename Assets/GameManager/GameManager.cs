@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
 
         if (PhotonNetwork.IsMasterClient)
-            photonView.RPC("AiInit", RpcTarget.MasterClient);
+            gameObject.GetPhotonView().RPC("AiInit", RpcTarget.MasterClient);
 
     }
     //생성할때  //풀링전에 생성을 한다 (매니저)
@@ -117,13 +117,14 @@ public class GameManager : MonoBehaviourPunCallbacks
         int count = 0;
         while (count < 4)
         {
-            winLogo.gameObject.transform.position += Vector3.up;
+            winLogo.gameObject.transform.position += Vector3.up*20;
             yield return new WaitForSeconds(0.5f);
-            winLogo.gameObject.transform.position -= Vector3.up;
+            winLogo.gameObject.transform.position -= Vector3.up*20;
             yield return new WaitForSeconds(0.5f);
             count++;
         }
         PhotonNetwork.LeaveRoom();
+        PhotonNetwork.LoadLevel("StartScene");
     }
 
 
