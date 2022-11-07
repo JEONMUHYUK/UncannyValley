@@ -84,6 +84,11 @@ public class PlayerMove : MonoBehaviourPun
         AudioManagers.Instance.FX(AudioManagers.Instance.Death);
         Destroy(gameObject);
         if (photonView.IsMine)
+        {
             PhotonNetwork.LeaveRoom();
+            PhotonNetwork.LoadLevel("StartScene");
+        }
+
+
     }
 }
