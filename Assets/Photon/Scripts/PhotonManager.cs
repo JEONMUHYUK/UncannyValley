@@ -11,6 +11,12 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     [SerializeField] private Image playerImageInRoom = null;
     [SerializeField] private Sprite[] sprites = null;
 
+    private void Awake()
+    {
+        if (PhotonNetwork.IsMasterClient)
+            PhotonNetwork.AutomaticallySyncScene = true;
+
+    }
     void Start() => PhotonNetwork.ConnectUsingSettings();
 
 
@@ -62,7 +68,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.CurrentRoom.PlayerCount == 4)
         {
             Debug.Log("다같이 이동!");
-            PhotonNetwork.LoadLevel("GameScene");
+            if (PhotonNetwork.IsMasterClient) PhotonNetwork.LoadLevel("GameScene");
 
         }
         AudioManagers.Instance.FX(AudioManagers.Instance.EnterRoom);
