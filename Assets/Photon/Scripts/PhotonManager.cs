@@ -68,7 +68,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.CurrentRoom.PlayerCount == 4)
         {
             Debug.Log("다같이 이동!");
-            if (PhotonNetwork.IsMasterClient) PhotonNetwork.LoadLevel("GameScene");
+            PhotonNetwork.LoadLevel("GameScene");
 
         }
         AudioManagers.Instance.FX(AudioManagers.Instance.EnterRoom);
