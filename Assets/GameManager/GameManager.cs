@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviourPun
 
     private void Awake()
     {
+        Application.targetFrameRate = 60;
+
         startPos = new Vector3[unitCount];
         playerSetPos = new Vector3[4];
 
