@@ -888,10 +888,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1258601683, guid: 83338af9c1d1cbf46bc38b0de193cef2, type: 3}
-      propertyPath: m_TagString
-      value: StaminaState
-      objectReference: {fileID: 0}
     - target: {fileID: 5763990424468307944, guid: 83338af9c1d1cbf46bc38b0de193cef2, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -978,10 +974,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8383121327708883014, guid: 83338af9c1d1cbf46bc38b0de193cef2, type: 3}
       propertyPath: m_Name
-      value: PlayerUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 8383121327708883014, guid: 83338af9c1d1cbf46bc38b0de193cef2, type: 3}
-      propertyPath: m_TagString
       value: PlayerUI
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2579,10 +2571,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 283371595, guid: d599b20ab2e97774ea4165a2fda95b79, type: 3}
-      propertyPath: sceneViewId
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 428509491, guid: d599b20ab2e97774ea4165a2fda95b79, type: 3}
       propertyPath: staminaState
       value: 
