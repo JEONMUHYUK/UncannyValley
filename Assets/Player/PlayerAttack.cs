@@ -1,43 +1,47 @@
-    using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class PlayerAttack : MonoBehaviour
+public class PlayerAttack : MonoBehaviourPun
 {
     [SerializeField]
     private GameObject myNose;
     [SerializeField]
-    private float attackSpeed=2;
+    private float attackSpeed = 2;
 
     private Vector3 attackPos = -Vector3.up;
     private PlayerInput playerInput;
-    private bool attacking = false; 
+    private bool attacking = false;
 
     private void Start()
     {
-        playerInput = gameObject.GetComponent<PlayerInput>();
+        if (photonView.IsMine) gameObject.tag = "MainPlayer";
+        else gameObject.tag = "Player";
+
+        playerInput = gameObject.GetComponent<PlayerInput>();   
         playerInput.del_Attack = NoseAttack;
     }
-
+    
     public void NoseAttack()
     {
         if (attacking) return;
-        StartCoroutine(NoseFoward());
-        Debug.Log("°ø°ÝÁß");
+        photonView.StartCoroutine(NoseFoward());
     }
+    [PunRPC]
     IEnumerator NoseFoward()
     {
         attacking = true;
         while (true)
         {
-             myNose.transform.Translate(attackPos*Time.deltaTime* attackSpeed);
+            myNose.transform.Translate(attackPos * Time.deltaTime * attackSpeed);
             yield return null;
             if (Vector3.Distance(myNose.transform.position, gameObject.transform.position) > 0.9) break;
         }
-        StartCoroutine(NoseBack());
-        yield break ;
+        photonView.StartCoroutine(NoseBack());
+        yield break;
     }
-
+    [PunRPC]
     IEnumerator NoseBack()
     {
         while (true)
