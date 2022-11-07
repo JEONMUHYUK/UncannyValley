@@ -114,6 +114,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             count++;
         }
         PhotonNetwork.LoadLevel("StartScene");
+        PhotonNetwork.LeaveRoom();
         PhotonNetwork.Disconnect();
    
     }
