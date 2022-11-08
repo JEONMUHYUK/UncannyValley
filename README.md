@@ -1,2 +1,0 @@
-# UncannyValley
-OndayTeamProject
