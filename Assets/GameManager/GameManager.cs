@@ -9,6 +9,7 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 using UnityEditor;
 
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] int unitCount;
@@ -62,16 +63,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             GameObject player = PhotonNetwork.Instantiate("Player", playerSetPos[3], Quaternion.identity);
         }
-      /*  if (PhotonNetwork.IsMasterClient)
-        {
-            for (int i = 0; i < unitCount; i++)
-            {
-                GameObject player = PhotonNetwork.Instantiate("Unit", startPos[i], Quaternion.identity * Quaternion.Euler(0, Random.Range(0, 360), 0));
-            }
-        }*/
-
-
-
         if (PhotonNetwork.IsMasterClient)
             gameObject.GetPhotonView().RPC("AiInit", RpcTarget.MasterClient);
 
@@ -110,12 +101,12 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         winLogo.gameObject.SetActive(true);
 
-
+        StartCoroutine(WinEff());
     }
     IEnumerator WinEff()
     {
         int count = 0;
-        while (count < 4)
+        while (count < 30)
         {
             winLogo.gameObject.transform.position += Vector3.up*20;
             yield return null;
@@ -123,8 +114,8 @@ public class GameManager : MonoBehaviourPunCallbacks
             yield return null;
             count++;
         }
-        PhotonNetwork.LeaveRoom();
-        PhotonNetwork.LoadLevel("StartScene");
+        PhotonNetwork.Disconnect();
+        SceneManager.LoadScene("StartScene");
     }
 
 
