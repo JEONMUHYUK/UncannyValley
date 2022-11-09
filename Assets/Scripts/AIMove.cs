@@ -1,37 +1,91 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 using Photon.Pun;
-
-public class AIMove : MonoBehaviourPun
+public class AIMove : MonoBehaviourPun,IPunObservable
 {
+    [SerializeField] enum State { Move, Stop };
+    float moveSpeed = 0.4f;
+    float rotateSpeed = 2f;
+    float randomRange = 0f;
+
+    private Vector3 arrive;
+    private Vector3 dir;
+    private Quaternion curRot;
+
+    private PhotonView PV;
     
-    bool isStop = false;
-    private NavMeshAgent agent;
-    private Vector3 destination;
+    State state;
 
     private void Start()
     {
-        if(PhotonNetwork.IsConnected)
+        MoveToArrive();
+        StartCoroutine(CheckArrive());
+        state = State.Move;
+
+        curRot = Quaternion.LookRotation(dir);
+    }
+
+    private void Update()
+    {
+        if(PhotonNetwork.IsMasterClient)
         {
-            if(PhotonNetwork.IsMasterClient)
+            if (Vector3.Distance(transform.position, arrive) > 2f)
             {
-                agent =  GetComponent<NavMeshAgent>();
+                state = State.Move;
+                dir = arrive - this.transform.position;
+                
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), rotateSpeed * Time.deltaTime);
+                transform.position = Vector3.Lerp(transform.position, arrive, moveSpeed * Time.deltaTime);
+                //transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime); 
             }
             else
             {
-                GetComponent<NavMeshAgent>().enabled = false;
+                state = State.Stop;
+                arrive = transform.position;
             }
         }
     }
 
-
-    IEnumerator Stop()
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        isStop = true;
-        yield return new WaitForSeconds(Random.Range(0, 5f));
-        isStop = false;
+        if(stream.IsWriting)
+        {
+            stream.SendNext(transform.position);
+            stream.SendNext(transform.rotation);
+        }
+        else
+        {
+            arrive = (Vector3)stream.ReceiveNext();
+            curRot = (Quaternion)stream.ReceiveNext();
+        }
+    }
+
+    void MoveToArrive()
+    {
+        randomRange = Random.Range(0f, 10f);
+        arrive = transform.position + new Vector3(Random.Range(-randomRange,randomRange), 0f, Random.Range(-randomRange,randomRange));
+        if (arrive.x < -49 || arrive.z < -49 || arrive.x > 49 || arrive.z > 49)
+            MoveToArrive();
+    }
+
+    IEnumerator CheckArrive()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(Random.Range(0.5f, 5f));
+            rotateSpeed = Random.Range(1f, 5f);
+            MoveToArrive();
+        }
+    }
+
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Obstacle"))
+        {
+            MoveToArrive();
+        }
     }
 
 }
