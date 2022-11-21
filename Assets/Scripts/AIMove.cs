@@ -5,8 +5,8 @@ using Photon.Pun;
 public class AIMove : MonoBehaviourPun,IPunObservable
 {
     [SerializeField] enum State { Move, Stop };
-    float moveSpeed = 0.4f;
-    float rotateSpeed = 2f;
+    float moveSpeed = 0.3f;
+    float rotateSpeed = 5f;
     float randomRange = 0f;
 
     private Vector3 arrive;
@@ -63,7 +63,7 @@ public class AIMove : MonoBehaviourPun,IPunObservable
 
     void MoveToArrive()
     {
-        randomRange = Random.Range(0f, 10f);
+        randomRange = Random.Range(0f, 20f);
         arrive = transform.position + new Vector3(Random.Range(-randomRange,randomRange), 0f, Random.Range(-randomRange,randomRange));
         if (arrive.x < -49 || arrive.z < -49 || arrive.x > 49 || arrive.z > 49)
             MoveToArrive();
@@ -73,8 +73,8 @@ public class AIMove : MonoBehaviourPun,IPunObservable
     {
         while (true)
         {
-            yield return new WaitForSeconds(Random.Range(0.5f, 5f));
-            rotateSpeed = Random.Range(1f, 5f);
+            yield return new WaitForSeconds(Random.Range(0.5f, 4f));
+            rotateSpeed = Random.Range(1f, 8f);
             MoveToArrive();
         }
     }
