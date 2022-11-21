@@ -7,6 +7,7 @@ public class PlayerAttack : MonoBehaviourPun
 {
     [SerializeField]
     private GameObject myNose;
+    private NoseFunction myNoseFunc;
     [SerializeField]
     private float attackSpeed = 2;
 
@@ -21,6 +22,8 @@ public class PlayerAttack : MonoBehaviourPun
 
         playerInput = gameObject.GetComponent<PlayerInput>();   
         playerInput.del_Attack = NoseAttack;
+
+        myNoseFunc = myNose.GetComponent<NoseFunction>();
     }
     
     public void NoseAttack()
@@ -33,6 +36,7 @@ public class PlayerAttack : MonoBehaviourPun
     {
         if (!photonView.IsMine) return;
         if (attacking) return;
+        myNoseFunc.HitAble(true);
         photonView.StartCoroutine(NoseFoward());
     }
 
@@ -60,6 +64,7 @@ public class PlayerAttack : MonoBehaviourPun
             if (Vector3.Distance(myNose.transform.position, gameObject.transform.position) < 0.1f) break;
         }
         attacking = false;
+        myNoseFunc.HitAble(false);
         yield break;
     }
 }

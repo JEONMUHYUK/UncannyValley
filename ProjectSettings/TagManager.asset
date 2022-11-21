@@ -7,6 +7,8 @@ TagManager:
   - PlayerUI
   - StaminaState
   - MainPlayer
+  - AI
+  - Obstacle
   layers:
   - Default
   - TransparentFX
