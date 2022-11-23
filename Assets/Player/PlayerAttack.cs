@@ -20,14 +20,15 @@ public class PlayerAttack : MonoBehaviourPun
         if (photonView.IsMine) gameObject.tag = "MainPlayer";
         else gameObject.tag = "Player";
 
-        playerInput = gameObject.GetComponent<PlayerInput>();   
+        playerInput = gameObject.GetComponent<PlayerInput>();
         playerInput.del_Attack = NoseAttack;
 
         myNoseFunc = myNose.GetComponent<NoseFunction>();
     }
-    
+
     public void NoseAttack()
     {
+
         gameObject.GetPhotonView().RPC("AttackStart", RpcTarget.All);
     }
 
@@ -45,6 +46,8 @@ public class PlayerAttack : MonoBehaviourPun
     IEnumerator NoseFoward()
     {
         attacking = true;
+        transform.GetChild(1).gameObject.SetActive(true);
+        transform.GetChild(0).gameObject.SetActive(false);
         while (true)
         {
             myNose.transform.Translate(attackPos * Time.deltaTime * attackSpeed);
@@ -61,10 +64,15 @@ public class PlayerAttack : MonoBehaviourPun
         {
             myNose.transform.Translate(-attackPos * Time.deltaTime * attackSpeed);
             yield return null;
-            if (Vector3.Distance(myNose.transform.position, gameObject.transform.position) < 0.1f) break;
+            if (Vector3.Distance(myNose.transform.position, gameObject.transform.position) <= 0.1f) break;
         }
+        myNose.transform.position = gameObject.transform.position; // ¿øÀ§Ä¡
+
         attacking = false;
+        transform.GetChild(0).gameObject.SetActive(true);
+        transform.GetChild(1).gameObject.SetActive(false);
         myNoseFunc.HitAble(false);
         yield break;
     }
 }
+

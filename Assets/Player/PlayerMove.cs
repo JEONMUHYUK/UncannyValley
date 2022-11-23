@@ -24,6 +24,12 @@ public class PlayerMove : MonoBehaviourPun
     private Vector3 rotate = Vector3.zero;
     private bool isRun = false;
 
+    private GameObject myUI;
+
+    private string myKiller;
+    private CapsuleCollider myCapsuleCollider;
+    private Rigidbody myRigidbody;
+
     private void Start()
     {
         playerInput = playerInput = gameObject.GetComponent<PlayerInput>();
@@ -31,6 +37,10 @@ public class PlayerMove : MonoBehaviourPun
         playerRigidBody = gameObject.GetComponent<Rigidbody>();
         playerInput.del_Run = Run;
         playerInput.del_Stop = RunStop;
+
+        myUI = FindObjectOfType<UIManager>().gameObject;
+        myCapsuleCollider = gameObject.GetComponent<CapsuleCollider>();
+        myRigidbody = gameObject.GetComponent<Rigidbody>();
     }
 
     private void Update()
@@ -82,13 +92,43 @@ public class PlayerMove : MonoBehaviourPun
     public void Death()
     {
         AudioManagers.Instance.FX(AudioManagers.Instance.Death);
-        Destroy(gameObject);
+        Destroy(transform.GetChild(0).gameObject);
+        Destroy(transform.GetChild(2).gameObject);
+
+        myRigidbody.useGravity = false;
+        myCapsuleCollider.enabled = false;
+        //Destroy(gameObject);
+
         if (photonView.IsMine)
         {
-            PhotonNetwork.Disconnect();
-            SceneManager.LoadScene("StartScene");
+            myUI.GetComponent<UIManager>().ShowDeadLogo(myKiller);
+            Invoke("SetDestroy", 1.5f);
         }
+        //Invoke("SetDestroy", 2.5f);
+    }
+
+    public void SetDestroy()
+    {
+        Destroy(gameObject);
+        PhotonNetwork.Disconnect();
+        SceneManager.LoadScene("StartScene");
+    }
 
 
+    IEnumerator MoveScene()
+    {
+        
+        Debug.Log("Logo Done");
+        yield return new WaitForSeconds(2f);
+        Destroy(gameObject);
+        Debug.Log("Start moveScene");
+        
+    }
+
+    [PunRPC]
+    public void KillLogo(string name)
+    {
+        myKiller = name;
+        Debug.Log("Get " + name);
     }
 }

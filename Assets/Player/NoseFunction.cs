@@ -6,6 +6,13 @@ using Photon.Pun;
 public class NoseFunction : MonoBehaviourPun
 {
     bool hitAble = false;
+    string myNickName;
+
+    public void Awake()
+    {
+        myNickName = PhotonNetwork.NickName;
+        Debug.Log("awake nick : " + myNickName);
+    }
 
     public void HitAble(bool able)
     {
@@ -15,11 +22,18 @@ public class NoseFunction : MonoBehaviourPun
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("--");
-        if (other.tag != "MainPlayer"&&photonView.IsMine && hitAble)
+        if (other.tag != "MainPlayer" && photonView.IsMine && hitAble)
         {
-           // other.gameObject.GetPhotonView().RPC("Death", RpcTarget.All);
+            // other.gameObject.GetPhotonView().RPC("Death", RpcTarget.All);
 
-            other.SendMessage("CallDeath",SendMessageOptions.DontRequireReceiver);
+
+            Debug.Log(myNickName);
+            if(other.CompareTag("Player"))
+            { other.gameObject.GetComponent<PlayerMove>().photonView.RPC("KillLogo", RpcTarget.All, myNickName); }
+            
+
+            other.SendMessage("CallDeath", SendMessageOptions.DontRequireReceiver);
+
             Debug.Log("ªË¡¶");
         }
     }
